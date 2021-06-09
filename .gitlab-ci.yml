@@ -37,6 +37,7 @@ build:
   tags:
     - K8S
     - ARM64
+    - DOCKER
   script:
     - docker build -t my-docker-image .
     - docker run my-docker-image /script/to/run/tests
