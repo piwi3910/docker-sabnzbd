@@ -4,9 +4,9 @@ variables:
   DOCKER_HOST: tcp://docker:2375
   DOCKER_TLS_CERTDIR: ""
   # fill those if you have a proxy in your environment
-  http_proxy: 
-  https_proxy: 
-  no_proxy: 
+  http_proxy: ""
+  https_proxy: ""
+  no_proxy: "" 
 
 services:
   - docker:19.03.12-dind
