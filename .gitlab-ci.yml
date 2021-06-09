@@ -26,6 +26,10 @@ before_script:
 
 build:
   stage: build
+  tags:
+    - DOCKER
+    - K8S
+    - ARM64
   script:
     - docker build -t my-docker-image .
     - docker run my-docker-image /script/to/run/tests
