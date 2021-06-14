@@ -53,7 +53,6 @@ build:
     - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
   dependencies:
     - Check_github_release
-  needs: ["check_github_release"]
 
 # Here, the goal is to tag the "master" branch as "latest" and version number of sabnzbd
 push latest:
