@@ -28,6 +28,7 @@ Check_github_release:
   stage: check_github_release
   script:
     - chmod +x version.sh
+    - apt update -y
     - apt install curl grep -y
     - ./version.sh
     - echo "$version" >> vars.env
