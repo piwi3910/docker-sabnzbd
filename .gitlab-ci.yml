@@ -1,6 +1,7 @@
 image: docker:19.03.12
 
 variables:
+  # change d-in-d to use unencrpyted to fix bug
   DOCKER_HOST: tcp://docker:2375
   DOCKER_TLS_CERTDIR: ""
   # fill those if you have a proxy in your environment
@@ -31,8 +32,8 @@ Check_github_release:
     - chmod +x version.sh
     - version.sh
     - echo "$version" >> vars.env
-    reports:
-      dotenv: vars.env
+  reports:
+    dotenv: vars.env
 
 Build:
   tags:
