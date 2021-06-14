@@ -30,6 +30,7 @@ Check_github_release:
   stage: check_github_release
   script:
     - chmod +x version.sh
+    - ls -lah
     - ./version.sh
     - echo "$version" >> vars.env
   artifacts:
