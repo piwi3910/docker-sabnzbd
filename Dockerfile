@@ -1,6 +1,6 @@
 FROM debian:buster
 
-LABEL maintainer="Dominique Barton"
+LABEL maintainer="Pascal Watteel"
 
 #
 # Install python and other required packages (https://github.com/sabnzbd/sabnzbd/blob/master/INSTALL.txt#L58)
