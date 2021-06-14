@@ -8,6 +8,7 @@ variables:
   http_proxy: ""
   https_proxy: ""
   no_proxy: ""
+  CI_DEBUG_TRACE: "true"
 
 services:
   - docker:19.03.12-dind
