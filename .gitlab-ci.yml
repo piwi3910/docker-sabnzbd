@@ -81,7 +81,7 @@ push latest:
     - docker push $CI_REGISTRY_IMAGE:$version
   dependencies:
     - Check_github_release
-  needs: ["build"]  
+  needs: ["build, Check_github_release"]  
 
 # Here, the goal is to tag the "master" branch as "latest" and version number of sabnzbd and push to dockerhub
 push latest to Dockerhub:
@@ -110,7 +110,7 @@ push latest to Dockerhub:
     - docker push $CI_REGISTRY_IMAGE:$version
   dependencies:
     - Check_github_release
-  needs: ["build"]      
+  needs: ["build,Check_github_release"]      
 
 # Finally, the goal here is to Docker tag any Git tag
 # GitLab will start a new pipeline everytime a Git tag is created, which is pretty awesome
@@ -133,4 +133,4 @@ Push tag:
     - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME
   dependencies:
     - Check_github_release
-  needs: ["build"]  
+  needs: ["build,Check_github_release"]  
