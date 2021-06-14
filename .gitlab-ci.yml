@@ -23,6 +23,7 @@ stages:
   - update_variable
 
 Check_github_release:
+  image: ubuntu:20.04
   tags:
     - DOCKER
     - K8S
