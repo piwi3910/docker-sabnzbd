@@ -13,9 +13,8 @@ stages:
   - check_github_release
   - build
   - push
-  - update_variable
 
-Check_github_release:
+check_github_release:
   image: ubuntu:20.04
   tags:
     - DOCKER
@@ -28,8 +27,9 @@ Check_github_release:
   artifacts:
     reports:
       dotenv: vars.env
+  needs: ["check_github_release"]
 
-Build:
+build:
   tags:
     - DOCKER
     - K8S
@@ -56,7 +56,7 @@ Build:
     - Check_github_release
 
 # Here, the goal is to tag the "master" branch as "latest" and version number of sabnzbd
-Push latest:
+push latest:
   tags:
     - DOCKER
     - K8S
@@ -82,6 +82,36 @@ Push latest:
     - docker push $CI_REGISTRY_IMAGE:$version
   dependencies:
     - Check_github_release
+  needs: ["build"]  
+
+# Here, the goal is to tag the "master" branch as "latest" and version number of sabnzbd and push to dockerhub
+push latest to Dockerhub:
+  tags:
+    - DOCKER
+    - K8S
+    - ARM64
+  variables:
+    # We are just playing with Docker here. 
+    # We do not need GitLab to clone the source code.
+    GIT_STRATEGY: none
+  stage: push
+  only:
+    # Only "master" should be tagged "latest"
+    - main
+  script:
+    - echo -n $CI_JOB_TOKEN | docker login -u gitlab-ci-token --password-stdin $CI_REGISTRY
+    # Because we have no guarantee that this job will be picked up by the same runner 
+    # that built the image in the previous step, we pull it again locally
+    - docker pull $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
+    # Then we tag it "latest"
+    - docker tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA $CI_REGISTRY_IMAGE:latest
+    - docker tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA $CI_REGISTRY_IMAGE:$version
+    # Annnd we push it.
+    - docker push $CI_REGISTRY_IMAGE:latest
+    - docker push $CI_REGISTRY_IMAGE:$version
+  dependencies:
+    - Check_github_release
+  needs: ["build"]      
 
 # Finally, the goal here is to Docker tag any Git tag
 # GitLab will start a new pipeline everytime a Git tag is created, which is pretty awesome
@@ -104,3 +134,4 @@ Push tag:
     - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME
   dependencies:
     - Check_github_release
+  needs: ["build"]  
