@@ -1,4 +1,4 @@
-FROM debian:buster
+FROM ubuntu:20.04
 
 LABEL maintainer="Pascal Watteel"
 
@@ -6,7 +6,6 @@ LABEL maintainer="Pascal Watteel"
 # Install python and other required packages (https://github.com/sabnzbd/sabnzbd/blob/master/INSTALL.txt#L58)
 #
 RUN export DEBIAN_FRONTEND=noninteractive &&\
-    sed -i "s#deb http://deb.debian.org/debian buster main#deb http://deb.debian.org/debian buster main non-free#g" /etc/apt/sources.list &&\
     apt-get -q update &&\
     apt-get install -qqy python3-pip python3-openssl p7zip-full par2 unrar unzip python3 openssl ca-certificates &&\
     /usr/bin/update-alternatives --install /usr/bin/python python /usr/bin/python3 1 &&\
