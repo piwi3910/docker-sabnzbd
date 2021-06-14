@@ -32,8 +32,9 @@ Check_github_release:
     - chmod +x version.sh
     - version.sh
     - echo "$version" >> vars.env
-  reports:
-    dotenv: vars.env
+  artifacts:
+    reports:
+      dotenv: vars.env
 
 Build:
   tags:
