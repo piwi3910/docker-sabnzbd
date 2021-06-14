@@ -28,8 +28,9 @@ Check_github_release:
     - ARM64
   stage: check_github_release
   script:
-    - echo "version=$(curl --silent https://api.github.com/repos/sabnzbd/sabnzbd/releases/latest | grep -Po '"tag_name": "\K.*?(?=")')" > vars.env
-  artifacts:
+    - chmod +x version.sh
+    - version.sh
+    - echo "$version" >> vars.env
     reports:
       dotenv: vars.env
 
