@@ -52,7 +52,7 @@ build:
       .
     - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
   dependencies:
-    - Check_github_release
+    - check_github_release
 
 # Here, the goal is to tag the "master" branch as "latest" and version number of sabnzbd
 push latest:
@@ -80,7 +80,7 @@ push latest:
     - docker push $CI_REGISTRY_IMAGE:latest
     - docker push $CI_REGISTRY_IMAGE:$version
   dependencies:
-  - Check_github_release
+  - check_github_release
 
 
 # Here, to dockerhub
@@ -111,7 +111,7 @@ push latest to Dockerhub:
     - docker push $dockerhub_user/$dockerhub_image:latest
     - docker push $dockerhub_user/$dockerhub_image:$version
   dependencies:
-    - Check_github_release
+    - check_github_release
 
 
 # Finally, the goal here is to Docker tag any Git tag
@@ -134,5 +134,5 @@ Push tag:
     - docker tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME
     - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME
   dependencies:
-    - Check_github_release
+    - check_github_release
 
