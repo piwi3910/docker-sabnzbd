@@ -79,9 +79,11 @@ push latest:
     # Annnd we push it.
     - docker push $CI_REGISTRY_IMAGE:latest
     - docker push $CI_REGISTRY_IMAGE:$version
-  needs: ["build"]  
+  dependencies:
+  - Check_github_release
 
-# Here, the goal is to tag the "master" branch as "latest" and version number of sabnzbd and push to dockerhub
+
+# Here, to dockerhub
 push latest to Dockerhub:
   tags:
     - DOCKER
@@ -99,14 +101,18 @@ push latest to Dockerhub:
     - echo -n $CI_JOB_TOKEN | docker login -u gitlab-ci-token --password-stdin $CI_REGISTRY
     # Because we have no guarantee that this job will be picked up by the same runner 
     # that built the image in the previous step, we pull it again locally
-    - docker pull $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
-    # Then we tag it "latest"
-    - docker tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA $CI_REGISTRY_IMAGE:latest
-    - docker tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA $CI_REGISTRY_IMAGE:$version
-    # Annnd we push it.
-    - docker push $CI_REGISTRY_IMAGE:latest
-    - docker push $CI_REGISTRY_IMAGE:$version
-  needs: ["build"]      
+    - docker pull $CI_REGISTRY_IMAGE:latest
+    # we now login to our dockerhub
+    - docker login -u $dockerhub_user -p $dockerhub_password docker.io
+    # retag the image with the dockerhub name
+    - docker tag $CI_REGISTRY_IMAGE:latest $dockerhub_user/$dockerhub_image:latest
+    - docker tag $CI_REGISTRY_IMAGE:latest $dockerhub_user/$dockerhub_image:$version
+    # And we push it.
+    - docker push $dockerhub_user/$dockerhub_image:latest
+    - docker push $dockerhub_user/$dockerhub_image:$version
+  dependencies:
+    - Check_github_release
+
 
 # Finally, the goal here is to Docker tag any Git tag
 # GitLab will start a new pipeline everytime a Git tag is created, which is pretty awesome
@@ -127,4 +133,6 @@ Push tag:
     - docker pull $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
     - docker tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME
     - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME
-  needs: ["build"]  
+  dependencies:
+    - Check_github_release
+
