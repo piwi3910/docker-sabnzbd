@@ -45,7 +45,6 @@ fi
 #
 
 printf "Set permissions... "
-touch ${CONFIG}
 chown -R ${USER}: /sabnzbd
 function check_permissions {
   [ "$(stat -c '%u %g' $1)" == "${SABNZBD_UID} ${SABNZBD_GID}" ] || chown ${USER}: $1
@@ -57,16 +56,24 @@ check_permissions $CONFIG
 echo "[DONE]"
 
 #
+# Check if the config file already exists, if not start sabnzbd to generate one, and then shut off,
+# so we can adapt the config else skip
+#
+
+if [ ! -f "${CONFIG}" ]; then 
+    echo "Pre-Starting SABnzbd to generate config file"
+    touch ${CONFIG}
+    check_permissions $CONFIG
+    exec su -pc "./SABnzbd.py -b 0 -f ${CONFIG} ${LISTENER}" ${USER} &
+    sleep 10
+    killall SABnzbd.py
+fi 
+
+#
 # Because SABnzbd runs in a container we've to make sure we've a proper
 # listener on 0.0.0.0. We also have to deal with the port which by default is
 # 8080 but can be changed by the user.
 #
-
-echo "Pre-Starting SABnzbd to generate config file"
-exec su -pc "./SABnzbd.py -b 0 -f ${CONFIG} ${LISTENER}" ${USER} &
-sleep 10
-killall SABnzbd.py
-
 
 printf "Get listener port... "
 PORT=$(sed -n '/^port *=/{s/port *= *//p;q}' ${CONFIG})
