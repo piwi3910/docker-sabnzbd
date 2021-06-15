@@ -56,13 +56,11 @@ ADD https://github.com/sabnzbd/sabnzbd/releases/download/${SABNZBD_VERSION}/SABn
 #
 RUN adduser -u 666 -D -h /sabnzbd sabnzbd sabnzbd && \
     chmod 755 /sabnzbd.sh &&\
-    tar xzf /tmp/sabnzbd.tar.gz &&\
-    mv SABnzbd-* sabnzbd
-
-RUN cd sabnzbd && ls -lah &&\
+    tar xzf /tmp/sabnzbd.tar.gz -C /tmp &&\
+    mv /tmp/SABnzbd-*/* /sabnzbd/
     python3 -m pip install -r /sabnzbd/requirements.txt &&\
     chown -R sabnzbd: sabnzbd &&\
-    rm -rf /tmp/*
+    rm -rf /tmp/SAB* /tmp/sab*
 
 #
 # Define container settings.
