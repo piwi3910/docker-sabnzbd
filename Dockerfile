@@ -9,7 +9,7 @@ RUN apk update && \
 	update-ca-certificates && \
     wget https://github.com/Parchive/par2cmdline/archive/refs/tags/v0.8.1.tar.gz && \
 	tar -xzvf v0.8.1.tar.gz && \
-	cd v0.8.1.tar.gz && \
+	cd par2cmdline-0.8.1 && \
 	aclocal && \
 	automake --add-missing && \
 	autoconf && \
