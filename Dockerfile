@@ -29,6 +29,7 @@ RUN apk add \
    py3-openssl \
    p7zip \
    python3 \
+   unrar \
    --no-cache
 
 #
