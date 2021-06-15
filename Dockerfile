@@ -2,14 +2,32 @@ FROM piwi3910/base:latest
 
 LABEL maintainer="Pascal Watteel"
 
+
+# par2 packages isn't available, building in virtual system
+RUN apk update && \
+	apk add --no-cache --virtual .build-dependencies make g++ ca-certificates wget automake autoconf && \
+	update-ca-certificates && \
+    wget https://github.com/Parchive/par2cmdline/archive/refs/tags/v0.8.1.tar.gz && \
+	tar -xzvf v0.8.1.tar.gz && \
+	cd v0.8.1.tar.gz && \
+	aclocal && \
+	automake --add-missing && \
+	autoconf && \
+	./configure && \
+	make && \
+	make install && \
+    apk del .build-dependencies && \
+	cd / && \
+	rm -rf par2cmdline-0.8.1 v0.8.1.tar.gz
+
+
 #
 # Install python and other required packages (https://github.com/sabnzbd/sabnzbd/blob/master/INSTALL.txt#L58)
 #
 RUN apk add \
-   python3-pip \
-   python3-openssl \
-   p7zip-full \
-   par2 \
+   py3-pip \
+   py3-openssl \
+   p7zip \
    python3 \
    --no-cache
 
