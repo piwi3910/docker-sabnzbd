@@ -1,16 +1,17 @@
-FROM ubuntu:20.04
+FROM piwi3910/base:latest
 
 LABEL maintainer="Pascal Watteel"
 
 #
 # Install python and other required packages (https://github.com/sabnzbd/sabnzbd/blob/master/INSTALL.txt#L58)
 #
-RUN export DEBIAN_FRONTEND=noninteractive &&\
-    apt-get -q update &&\
-    apt-get install -qqy python3-pip python3-openssl p7zip-full par2 unrar unzip python3 openssl ca-certificates &&\
-    /usr/bin/update-alternatives --install /usr/bin/python python /usr/bin/python3 1 &&\
-    apt-get -y autoremove &&\
-    rm -rf /var/lib/apt/lists/*
+RUN apk add \
+   python3-pip \
+   python3-openssl \
+   p7zip-full \
+   par2 \
+   python3 \
+   --no-cache
 
 #
 # Add SABnzbd init script.
