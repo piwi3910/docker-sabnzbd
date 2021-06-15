@@ -52,7 +52,9 @@ function check_permissions {
 check_permissions /datadir
 check_permissions /media
 check_permissions $(dirname ${CONFIG})
-check_permissions $CONFIG
+if [ -f "${CONFIG}" ]; then
+    check_permissions $CONFIG
+fi    
 echo "[DONE]"
 
 #
