@@ -15,7 +15,7 @@ stages:
   - push
 
 check_github_release:
-  image: base:ubuntu_latest
+  image: piwi3910/base:ubuntu_latest
   tags:
     - DOCKER
     - K8S
