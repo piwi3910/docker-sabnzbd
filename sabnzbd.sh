@@ -69,6 +69,11 @@ if [ ! -f "${CONFIG}" ]; then
     exec su -pc "./SABnzbd.py -b 0 -f ${CONFIG} ${LISTENER}" ${USER} &
     sleep 10
     killall SABnzbd.py
+    while pgrep SABnzbd.py >/dev/null; do
+        echo "shutting down !!!"
+        sleep 1
+    done
+    echo "sabnzbd shutdown"
 fi 
 
 #
