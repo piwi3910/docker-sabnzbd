@@ -63,12 +63,14 @@ RUN adduser -u 666 -D -h /sabnzbd -s /bin/bash sabnzbd sabnzbd && \
     python3 -m pip install -r /sabnzbd/requirements.txt &&\
     apk del .build-dependencies &&\
     chown -R sabnzbd: sabnzbd &&\
-    rm -rf /tmp/SAB* /tmp/sab*
+    rm -rf /tmp/SAB* /tmp/sab* &&\
+    mkdir -p /downloads/complete /downloads/incomplete
+
 
 #
 # Define container settings.
 #
-VOLUME ["/datadir", "/media"]
+VOLUME ["/datadir", "/downloads"]
 
 EXPOSE 8080
 

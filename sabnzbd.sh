@@ -16,7 +16,7 @@ echo "  GID:        ${SABNZBD_GID:=666}"
 echo "  GID_LIST:   ${SABNZBD_GID_LIST:=}"
 echo
 echo "  Config:     ${CONFIG:=/datadir/config.ini}"
-echo
+echo "  Downloads:  ${DOWNLOADS:=/downloads} "
 
 #
 # Change UID / GID of SABnzbd user.
@@ -50,7 +50,7 @@ function check_permissions {
   [ "$(stat -c '%u %g' $1)" == "${SABNZBD_UID} ${SABNZBD_GID}" ] || chown ${USER}: $1
 }
 check_permissions /datadir
-check_permissions /media
+check_permissions ${DOWNLOADS}
 check_permissions $(dirname ${CONFIG})
 if [ -f "${CONFIG}" ]; then
     check_permissions $CONFIG
@@ -101,6 +101,10 @@ then
     echo "[${HOST_WHITELIST}]"
 fi
 
+printf "Updating downloads location ... "
+sed -i 's,download_dir = Downloads/incomplete,download_dir = /downloads\/incomplete,g' ${CONFIG}
+sed -i 's,complete_dir = Downloads/complete,complete_dir = /downloads/complete,g' ${CONFIG}
+rm -rf /datadir/Downloads
 
 #
 # Finally, start SABnzbd.
