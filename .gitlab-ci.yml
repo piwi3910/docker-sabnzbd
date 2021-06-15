@@ -15,7 +15,7 @@ stages:
   - push
 
 check_github_release:
-  image: ubuntu:20.04
+  image: base:ubuntu_latest
   tags:
     - DOCKER
     - K8S
