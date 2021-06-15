@@ -54,8 +54,7 @@ ADD https://github.com/sabnzbd/sabnzbd/releases/download/${SABNZBD_VERSION}/SABn
 #
 # Install SABnzbd and requied dependencies (https://github.com/sabnzbd/sabnzbd/blob/master/INSTALL.txt#L67)
 #
-RUN addgroup -g 666 sabnzbd &&\
-    useradd -u 666 -h /sabnzbd sabnzbd sabnzbd &&\
+RUN adduser -u 666 -D -h /sabnzbd sabnzbd sabnzbd && \
     chmod 755 /sabnzbd.sh &&\
     tar xzf /tmp/sabnzbd.tar.gz &&\
     mv SABnzbd-* sabnzbd &&\
