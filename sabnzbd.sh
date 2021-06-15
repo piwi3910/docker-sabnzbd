@@ -62,6 +62,12 @@ echo "[DONE]"
 # 8080 but can be changed by the user.
 #
 
+echo "Pre-Starting SABnzbd to generate config file"
+exec su -pc "./SABnzbd.py -b 0 -f ${CONFIG} ${LISTENER}" ${USER} &
+sleep 10
+killall SABnzbd.py
+
+
 printf "Get listener port... "
 PORT=$(sed -n '/^port *=/{s/port *= *//p;q}' ${CONFIG})
 LISTENER="-s 0.0.0.0:${PORT:=8080}"
