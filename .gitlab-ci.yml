@@ -14,6 +14,7 @@ stages:
   - check_github_release
   - build
   - push
+  - dockerhub
 
 check_github_release:
   image: piwi3910/base:ubuntu_latest
@@ -55,7 +56,7 @@ build:
     - check_github_release
 
 # Here, the goal is to tag the "master" branch as "latest" and version number of sabnzbd
-push latest:
+push:latest:
   tags:
     - DOCKER
     - K8S
@@ -84,7 +85,7 @@ push latest:
 
 
 # Here, to dockerhub
-push latest to Dockerhub:
+push:dockerhub:latest:
   tags:
     - DOCKER
     - K8S
@@ -93,7 +94,7 @@ push latest to Dockerhub:
     # We are just playing with Docker here. 
     # We do not need GitLab to clone the source code.
     GIT_STRATEGY: none
-  stage: push
+  stage: dockerhub
   only:
     # Only "master" should be tagged "latest"
     - main
