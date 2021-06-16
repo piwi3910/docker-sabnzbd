@@ -15,7 +15,7 @@ RUN apk update && \
 	automake --add-missing && \
 	autoupdate && \
     autoconf && \
-	./configure && \
+	./configure --disable-dependency-tracking && \
 	make && \
 	make install && \
     apk del .build-dependencies && \
