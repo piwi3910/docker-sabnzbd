@@ -12,7 +12,8 @@ RUN apk update && \
 	cd par2cmdline-0.8.1 && \
 	aclocal && \
 	automake --add-missing && \
-	autoconf && \
+	autoupdate && \
+    autoconf && \
 	./configure && \
 	make && \
 	make install && \
