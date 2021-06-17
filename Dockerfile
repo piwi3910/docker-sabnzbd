@@ -5,7 +5,7 @@ LABEL maintainer="Pascal Watteel"
 
 # par2 packages isn't available, building in virtual system
 RUN apk update && \
-    apk add --no-cache wget && \
+    apk add --no-cache wget shadow && \
 	apk add --no-cache --virtual .build-dependencies alpine-sdk automake autoconf && \
 	wget https://github.com/Parchive/par2cmdline/archive/refs/tags/v0.8.1.tar.gz && \
 	tar -xzvf v0.8.1.tar.gz && \
