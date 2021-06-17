@@ -10,6 +10,7 @@ RUN apk update && \
 	wget https://github.com/Parchive/par2cmdline/archive/refs/tags/v0.8.1.tar.gz && \
 	tar -xzvf v0.8.1.tar.gz && \
 	cd par2cmdline-0.8.1 && \
+    export LDFLAGS="-static" && \
 	aclocal && \
 	automake --add-missing && \
 	autoupdate && \
