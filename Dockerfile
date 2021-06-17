@@ -61,7 +61,7 @@ RUN adduser -u 666 -D -h /sabnzbd -s /bin/bash sabnzbd sabnzbd && \
     chmod 755 /sabnzbd.sh &&\
     tar xzf /tmp/sabnzbd.tar.gz -C /tmp &&\
     mv /tmp/SABnzbd-*/* /sabnzbd/ &&\
-    apk add --no-cache --virtual .build-dependencies make g++ gcc automake autoconf python3-dev &&\
+    apk add --no-cache --virtual .build-dependencies make g++ gcc automake autoconf python3-dev py3-wheel &&\
     python3 -m pip install -r /sabnzbd/requirements.txt &&\
     apk del .build-dependencies &&\
     chown -R sabnzbd: sabnzbd &&\
