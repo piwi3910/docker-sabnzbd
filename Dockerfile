@@ -15,7 +15,7 @@ RUN apk update && \
 	automake --add-missing && \
 	autoupdate && \
     autoconf && \
-	./configure --prefix=/usr/bin && \
+	./configure --prefix=/usr && \
 	make && \
 	make install && \
     apk del .build-dependencies && \
