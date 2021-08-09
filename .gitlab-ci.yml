@@ -20,7 +20,6 @@ check_github_release:
   image: piwi3910/base:ubuntu_latest
   tags:
     - DOCKER
-    - K8S
     - ARM64
   stage: check_github_release
   script:
@@ -33,7 +32,6 @@ check_github_release:
 build:
   tags:
     - DOCKER
-    - K8S
     - ARM64
   stage: build
   script:
@@ -59,7 +57,6 @@ build:
 push:latest:
   tags:
     - DOCKER
-    - K8S
     - ARM64
   variables:
     # We are just playing with Docker here. 
@@ -88,7 +85,6 @@ push:latest:
 push:dockerhub:latest:
   tags:
     - DOCKER
-    - K8S
     - ARM64
   variables:
     # We are just playing with Docker here. 
@@ -120,7 +116,6 @@ push:dockerhub:latest:
 Push tag:
   tags:
     - DOCKER
-    - K8S
     - ARM64
   variables:
     # Again, we do not need the source code here. Just playing with Docker.
