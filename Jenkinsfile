@@ -21,7 +21,6 @@ pipeline {
                             script: './version.sh',
                             returnStdout: true
                         ).trim()
-                    env.version = version    
                     }
                 }
             }    
@@ -30,7 +29,7 @@ pipeline {
             steps {
                 container('docker') {
                     script {
-                        alpine_dockerImage = docker.build("${env.imagename}:${BUILD_ID}", "--build-arg SABNZBD_VERSION=${env.version} ${WORKSPACE}" ) 
+                        alpine_dockerImage = docker.build("${env.imagename}:${BUILD_ID}", "--build-arg SABNZBD_VERSION=${version} ${WORKSPACE}" ) 
                     }
                 }
             }    
@@ -40,7 +39,7 @@ pipeline {
                 container('docker') {
                     script {
                         docker.withRegistry( '', registryCredential ) {
-                        alpine_dockerImage.push("${env.version}")
+                        alpine_dockerImage.push("${version}")
                         alpine_dockerImage.push('latest')
                         }
                     }
