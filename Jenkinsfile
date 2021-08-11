@@ -20,7 +20,8 @@ pipeline {
                         version = sh (
                             script: './version.sh',
                             returnStdout: true
-                        ).trim()    
+                        ).trim()
+                        sh 'echo ${version}'    
                     }
                 }
             }    
@@ -29,7 +30,7 @@ pipeline {
             steps {
                 container('docker') {
                     script {
-                        alpine_dockerImage = docker.build("${env.imagename}:${BUILD_ID}", "${WORKSPACE}" ) 
+                        alpine_dockerImage = docker.build("${env.imagename}:${BUILD_ID}", "--build-arg SABNZBD_VERSION=${env.version} ${WORKSPACE}" ) 
                     }
                 }
             }    
