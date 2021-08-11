@@ -17,7 +17,7 @@ pipeline {
                 container('ubuntu-base') {
                     script {
                         version = sh (
-                            script: '$(curl --silent "https://api.github.com/repos/sabnzbd/sabnzbd/releases/latest" | grep -Po '"tag_name": "\K.*?(?=")')',
+                            script: 'curl --silent "https://api.github.com/repos/sabnzbd/sabnzbd/releases/latest" | grep -Po \'"tag_name": "\K.*?(?=")\'',
                             returnStdout: true
                         ).trim()    
                     }
