@@ -21,7 +21,7 @@ pipeline {
                             script: './version.sh',
                             returnStdout: true
                         ).trim()
-                        echo "${version}"    
+                    env.version = version    
                     }
                 }
             }    
