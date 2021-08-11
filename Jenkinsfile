@@ -17,7 +17,6 @@ pipeline {
             steps {
                 container('ubuntu-base') {
                     script {
-                        sh 'chmod +x version.sh'
                         version = sh (
                             script: """curl --silent "https://api.github.com/repos/sabnzbd/sabnzbd/releases/latest" | grep -Po '"tag_name": "\\K.*?(?=")'""",
                             returnStdout: true
