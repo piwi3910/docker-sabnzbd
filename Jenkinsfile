@@ -52,13 +52,13 @@ pipeline {
                 container('ubuntu-base') {
                     script {
                         code = sh (
-                            script: """$(jq -n --arg msg "$(<README.md)" \
+                            script: """jq -n --arg msg "$(<README.md)" \
                                     '{"registry":"registry-1.docker.io","full_description": $msg }' | \
                                     curl -s -o /dev/null  -L -w "%{http_code}" \
                                     https://cloud.docker.com/v2/repositories/"${imagename}"/ \
                                     -d @- -X PATCH \
                                     -H "Content-Type: application/json" \
-                                    -H "Authorization: JWT ${dockerhubToken}")
+                                    -H "Authorization: JWT ${dockerhubToken}"
 
                                     if [[ "${code}" = "200" ]]; then
                                     printf "Successfully pushed README to Docker Hub"
