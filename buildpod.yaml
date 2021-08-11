@@ -20,4 +20,8 @@ spec:
     - name: docker-socket
       mountPath: /var/run
   - name: ubuntu-base
-    image: piwi3910/base:ubuntu_latest    
+    image: piwi3910/base:ubuntu_latest
+    command:
+    - sleep
+    args:
+    - 99d  
