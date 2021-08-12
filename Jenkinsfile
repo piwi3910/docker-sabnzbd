@@ -57,7 +57,7 @@ pipeline {
                                     https://cloud.docker.com/v2/repositories/"${imagename}"/ \
                                     -d @- -X PATCH \
                                     -H "Content-Type: application/json" \
-                                    -H "Authorization: JWT ${dockerhubToken}""""             
+                                    -H "Authorization: JWT ${dockerhubToken}""""        
                         )
                         sh """if [[ "${code}" = "200" ]]; then
                         printf "Successfully pushed README to Docker Hub"
