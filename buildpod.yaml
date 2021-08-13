@@ -21,6 +21,7 @@ spec:
       mountPath: /var/run
   - name: ubuntu-base
     image: piwi3910/base:ubuntu_latest
+    imagePullPolicy: Always
     command:
     - sleep
     args:
