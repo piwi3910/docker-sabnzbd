@@ -29,7 +29,7 @@ pipeline {
             steps {
                 container('docker') {
                     script {
-                        alpine_dockerImage = docker.build("${env.imagename}:${BUILD_ID}", "--build-arg SABNZBD_VERSION=${version} ${WORKSPACE}" ) 
+                        alpine_dockerImage = docker.build("${env.imagename}:${BUILD_ID}", "--build-arg VERSION=${version} ${WORKSPACE}" ) 
                     }
                 }
             }    

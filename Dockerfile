@@ -47,12 +47,12 @@ ENV LANG C.UTF-8
 #
 # Specify versions of software to install.
 #
-ARG SABNZBD_VERSION=DEFAULT
+ARG VERSION=DEFAULT
 
 #
 # Add (download) sabnzbd
 #
-ADD https://github.com/sabnzbd/sabnzbd/releases/download/${SABNZBD_VERSION}/SABnzbd-${SABNZBD_VERSION}-src.tar.gz /tmp/sabnzbd.tar.gz
+ADD https://github.com/sabnzbd/sabnzbd/releases/download/${VERSION}/SABnzbd-${VERSION}-src.tar.gz /tmp/sabnzbd.tar.gz
 
 #
 # Install SABnzbd and requied dependencies (https://github.com/sabnzbd/sabnzbd/blob/master/INSTALL.txt#L67)
