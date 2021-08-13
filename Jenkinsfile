@@ -46,7 +46,7 @@ pipeline {
                 }
             }    
         }
-        stage('Push README.md DockerHub') {
+/*        stage('Push README.md DockerHub') {
             steps {
                 container('ubuntu-base') {
                     script {
@@ -70,5 +70,5 @@ pipeline {
             }    
         }  
     }
-}
+}*/
 
