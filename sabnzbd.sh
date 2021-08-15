@@ -111,4 +111,4 @@ rm -rf /datadir/Downloads
 #
 
 echo "Starting SABnzbd..."
-exec su -pc "./SABnzbd.py -b 0 -f ${CONFIG} ${LISTENER}" ${USER}
+exec su -pc "./SABnzbd.py -l 2 --disable-file-log -b 0 -f ${CONFIG} ${LISTENER}" ${USER}
